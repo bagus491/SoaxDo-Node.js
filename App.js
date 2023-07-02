@@ -12,12 +12,14 @@ app.set('views',path.join(__dirname, 'src/views'))
 
 //database
 require('./src/utils/db')
+const users = require('./src/model/users');
 
 
+// ini adalah app get login
 app.get('/', (req,res) => {
     res.render('home', {
         title : 'halaman/home',
-        layout : 'main-layouts/main-layouts'
+        layout : 'home',
     })
 })
 
