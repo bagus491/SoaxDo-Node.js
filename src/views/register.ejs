@@ -11,6 +11,17 @@
         <div class="card text-bg-success mb-3" style="max-width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Register</h5>
+
+              <!-- disini adalah massagenya -->
+              <% if (typeof error != 'undefined') { %>
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <% error.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                        <% }) %>
+                    </ul>
+                  </div>
+              <% } %>
               <form action="/register" method="post">
                 <div class="mb-3">
                   <label for="Username" class="form-label">Username</label>

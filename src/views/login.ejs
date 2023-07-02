@@ -12,6 +12,13 @@
         <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Login</h5>
+
+              <!-- msgnya -->
+              <% if (msg.length != 0) { %>
+                <div class="alert alert-info" role="alert">
+                   <%= msg %>
+                  </div>
+              <% } %>
               <form action="/login" method="post">
                 <div class="mb-3">
                   <label for="Username" class="form-label">Username</label>

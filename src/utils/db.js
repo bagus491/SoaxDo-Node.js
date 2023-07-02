@@ -14,7 +14,7 @@ const client = new MongoClient(url,{
     useUnifiedTopology: true,
 })
 
-client.connect((error,result) => {
+client.connect((error) => {
     if(error){
         return console.log('gagal terhubung')
     }
