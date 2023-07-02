@@ -14,15 +14,44 @@ app.set('views',path.join(__dirname, 'src/views'))
 require('./src/utils/db')
 const users = require('./src/model/users');
 
+//midleware users
+app.use(express.urlencoded({extended: true}))
+
 
 // ini adalah app get login
 app.get('/', (req,res) => {
     res.render('home', {
-        title : 'halaman/home',
+        title : 'SoaxDo/home',
         layout : 'home',
     })
 })
 
+//router register
+app.get('/register', (req,res) => {
+    res.render('register', {
+        title: 'SoaxDo/register',
+        layout: 'register'
+    })
+})
+
+//post register
+app.post('/register', (req,res) => {
+
+})
+
+
+// router login
+app.get('/login', (req,res) => {
+    res.render('login', {
+        title: 'SoaxDo/login',
+        layout: 'login'
+    })
+})
+
+//post login
+app.post('/login', (req,res) => {
+    
+})
 
 
 
