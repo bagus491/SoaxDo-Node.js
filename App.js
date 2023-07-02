@@ -3,9 +3,22 @@ const app = express()
 const port = 3000
 
 
+//setting view ejs
+const mainlayouts = require('express-ejs-layouts')
+const path = require('path')
+app.set('view engine', 'ejs')
+app.use(mainlayouts)
+app.set('views',path.join(__dirname, 'src/views'))
+
+//database
+require('./src/utils/db')
+
 
 app.get('/', (req,res) => {
-    res.send('hello world')
+    res.render('home', {
+        title : 'halaman/home',
+        layout : 'main-layouts/main-layouts'
+    })
 })
 
 
