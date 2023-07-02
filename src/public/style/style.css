@@ -1,0 +1,14 @@
+.card-list {
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 576px) {
+    .card-list {
+        justify-content: center;
+    }
+    .card {
+        margin-top: 10px;
+    }
+}

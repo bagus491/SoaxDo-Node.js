@@ -1,0 +1,38 @@
+<div class="inputan text-center">
+  <h3>Update Product</h3>
+  <div class="container d-flex justify-content-center">
+      <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Masukan Inputan</h5>
+            <% if (typeof error != 'undefined') { %>
+              <div class="alert alert-danger" role="alert">
+                <ul>
+                    <% error.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+              </div>
+            <% } %>
+            <form action="/product?_method=PUT" method="post">
+              <input type="hidden" name="_id" value="<%= productData._id %>">
+              <div class="mb-3">
+                <label for="NamaProduct" class="form-label">NamaProduct</label>
+                <input type="text" class="form-control" name="NamaProduct" value="<%= productData.NamaProduct %>" id="NamaProduct" required>      
+              </div>
+              <div class="mb-3">
+                  <label for="JumlahProduct" class="form-label">JumlahProduct</label>
+                  <input type="number" class="form-control" name="JumlahProduct" value="<%= productData.JumlahProduct%>"  id="JumlahProduct" required>      
+                </div>
+                <div class="mb-3">
+                  <label for="ImageProduct" class="form-label">ImageProduct</label>
+                  <input type="text" class="form-control" name="ImageProduct" value="<%= productData.ImageProduct %>" id="ImageProduct" required>  
+                  <p>* Link</p>    
+                </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <br>
+            <a href="/product" class="btn btn-success">Kembali Ke Product</a>
+          </div>
+        </div>
+  </div>
+</div>
