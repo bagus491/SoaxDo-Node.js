@@ -25,3 +25,12 @@
 .flex-from-two {
     margin-left: 5px;
 }
+
+.Profile-container{
+    width: 100%;
+    /* background: brown; */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
