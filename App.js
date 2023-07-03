@@ -409,14 +409,29 @@ app.delete('/timetable', async (req,res) => {
 
 
 // sekarang masuk ke section settings
+// done validasi
 app.get('/settings',  async (req,res) => {
-    const dataOk = await users.findOne({Username: req.cookies.id})
-    res.render('settings', {
-        title: 'SoaxDo/Settings',
-        layout: 'main-layouts/main-layouts',
-        msg : req.flash('msg'),
-        dataOk
-    })
+    const token = req.cookies.token
+    if(token){
+        const dataOk = await users.findOne({Username: req.cookies.id})
+        if(dataOk){
+            res.render('settings', {
+                title: 'SoaxDo/Settings',
+                layout: 'main-layouts/main-layouts',
+                msg : req.flash('msg'),
+                dataOk
+            })
+        }else {
+            res.clearCookie('token')
+            res.clearCookie('id')
+            res.redirect('login')
+        }
+      
+    }else{
+        res.clearCookie('token')
+        res.clearCookie('id')
+        res.redirect('login')
+    }
 })
 
 // update akun
