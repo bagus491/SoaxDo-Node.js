@@ -6,6 +6,15 @@
             <div class="card-body">
               <h5 class="card-title">Masukan Inputan</h5>
              <!-- msgnya -->
+             <% if (typeof error != 'undefined') { %>
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <% error.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                        <% }) %>
+                    </ul>
+                  </div>
+             <% } %>
               <form action="/updateakun?_method=PUT" method="post">
                 <div class="mb-3">
                   <label for="Username" class="form-label">Username</label>

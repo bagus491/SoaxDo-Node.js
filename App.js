@@ -412,7 +412,7 @@ app.put('/updateakun',[
     const {Username,Password,Email} = req.body
     const error = validationResult(req)
     if(!error.isEmpty()){
-        res.render('/updateakun', {
+        res.render('update-akun', {
             title: 'SoaxDo/UpdateAkun',
             layout: 'main-layouts/main-layouts',
             dataOK: req.body,
@@ -431,7 +431,32 @@ app.put('/updateakun',[
                 }
             }
         ).then((error,result) => {
-            req.flash('msg', 'berhasil update akun')
+            res.cookie('id',Username)
+        })
+        // sekarang update product
+        product.updateOne(
+            {
+                Username: dataOK.Username
+            },
+            {
+                $set: {
+                    Username,
+                }
+            }
+        ).then((error,result) => {
+            req.flash('msg','berhasil update akun')
+        })
+        // sekarang update timetable
+        timetable.updateOne(
+            {
+                Username: dataOK.Username
+            },
+            {
+                $set: {
+                    Username,
+                }
+            }
+        ).then((error,result) => {
             res.redirect('/settings')
         })
     }
