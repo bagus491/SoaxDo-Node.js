@@ -1,8 +1,8 @@
-<br><br><br>
+<br><br><br><br>
 <div class="inputan text-center">
     <h3>Tambah Product</h3>
     <div class="container d-flex justify-content-center">
-        <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Masukan Inputan</h5>
 
@@ -37,7 +37,7 @@
                     <input type="text" class="form-control" name="ImageProduct" id="ImageProduct" required>  
                     <p>* Link</p>    
                   </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-danger">Submit</button>
               </form>
 
             </div>
@@ -61,7 +61,7 @@
                   <button type="submit" class="btn btn-danger" onclick="return confirm('yakin?')">Delete</button>
                 </form>
                 <BR>
-                <a href="/product/update/<%= productData.NamaProduct %>" class="btn btn-success">Update</a>
+                <a href="/product/update/<%= productData.NamaProduct %>" class="btn btn-dark">Update</a>
               </div>
             </div>
           <% }) %>

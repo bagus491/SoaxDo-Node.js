@@ -344,7 +344,7 @@ app.get('/product/update/:NamaProduct', async (req,res) => {
             }
             res.render('update', {
                 title: 'SoaxDo/update',
-                layout: 'main-layouts/main-layouts',
+                layout: 'update',
                 productData
             })
         }else {
