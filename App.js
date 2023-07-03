@@ -181,7 +181,8 @@ async (req,res) => {
 // app.use('/uploads', express.static('uploads'))
 
 
-// router profile
+// router profile 
+// done validasi
 app.get('/profile', async (req,res) =>{
     const token = req.cookies.token
     const validId = req.cookies.id
@@ -199,23 +200,35 @@ app.get('/profile', async (req,res) =>{
 
 // sekarang masuk ke bab product semua product disini
 // router product
+// done validasi product
 app.get('/product', async (req,res) => {
-    const dataOk = await users.findOne({Username: req.cookies.id})
-    if(dataOk){
-        const productData = await product.find({Username: dataOk.Username})
-        if(!productData){
-            res.clearCookie('token')
-            res.redirect('/login')
-            
-        }else{   
-            res.render('product', {
-                title: 'SoaxDo',
-                layout : 'main-layouts/main-layouts',
-                msg : req.flash('msg'),
-                productData })
+    const token = req.cookies.token
+    if(token){
+        const dataOk = await users.findOne({Username: req.cookies.id})
+        if(dataOk){
+            const productData = await product.find({Username: dataOk.Username})
+            if(!productData){
+                res.clearCookie('token')
+                res.clearCookie('id')
+                res.redirect('/login')
+                
+            }else{   
+                res.render('product', {
+                    title: 'SoaxDo/Product',
+                    layout : 'main-layouts/main-layouts',
+                    msg : req.flash('msg'),
+                    productData 
+                })
+            }
+        }else{
+                res.clearCookie('token')
+                res.clearCookie('id')
+                res.redirect('/login')
         }
-    }else{
-        res.clearCookie()
+    }else {
+        res.clearCookie('token')
+        res.clearCookie('id')
+        res.redirect('/login')
     }
 })
 
