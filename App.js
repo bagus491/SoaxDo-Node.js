@@ -451,15 +451,28 @@ app.get('/settings',  async (req,res) => {
 })
 
 // update akun
+// done validasi
 app.get('/updateakun', async (req,res) => {
-    const dataOK = await users.findOne({Username: req.cookies.id})
-    if(dataOK){
-        res.render('update-akun', {
-            title: 'SoaxDo/UpdateAkun',
-            layout: 'main-layouts/main-layouts',
-            dataOK
-        })
+    const token = req.cookies.token
+    if(token){
+        const dataOK = await users.findOne({Username: req.cookies.id})
+        if(dataOK){
+            res.render('update-akun', {
+                title: 'SoaxDo/UpdateAkun',
+                layout: 'main-layouts/main-layouts',
+                dataOK
+            })
+        }else {
+            res.clearCookie('token')
+            res.clearCookie('id')
+            res.redirect('/login')
+        }
+    }else{
+        res.clearCookie('token')
+        res.clearCookie('id')
+        res.redirect('/login')
     }
+   
 })
 
 // router post update akun
