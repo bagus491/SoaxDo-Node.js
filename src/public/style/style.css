@@ -12,3 +12,16 @@
         margin-top: 10px;
     }
 }
+
+.form-flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button-submit-form {
+    margin-top: 5px;
+}
+
+.flex-from-two {
+    margin-left: 5px;
+}

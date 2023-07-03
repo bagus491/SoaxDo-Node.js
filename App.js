@@ -14,6 +14,7 @@ app.set('views',path.join(__dirname, 'src/views'))
 require('./src/utils/db')
 const users = require('./src/model/users');
 const product = require('./src/model/product')
+const timetable = require('./src/model/timetable')
 
 //midleware users
 app.use(express.urlencoded({extended: true}))
@@ -56,12 +57,12 @@ app.use('/profile', (req,res,next) => {
             req.Username = decoded
             next()
         }catch{
-            res.status(401)
-            res.send('wrong Credtentials')
+            res.clearCookie('id')
+            res.redirect('/login')
         }
     }else{
-        res.status(401)
-        res.send('wrong Credtentials')
+        res.clearCookie('id')
+        res.redirect('/login')
     }
 })
 
@@ -175,23 +176,37 @@ async (req,res) => {
 
 // router profile
 app.get('/profile', (req,res) =>{
-    res.render('profile', {
-        title: 'SoaxDo/profile',
-        layout: 'main-layouts/main-layouts',
-    })
+    const token = req.cookies.token
+    if(token){
+        res.render('profile', {
+            title: 'SoaxDo/profile',
+            layout: 'main-layouts/main-layouts',
+        })
+    }else {
+        res.redirect('/login')
+    }
 })
 
 // sekarang masuk ke bab product semua product disini
 // router product
 app.get('/product', async (req,res) => {
     const dataOk = await users.findOne({Username: req.cookies.id})
-    const productData = await product.find({Username: dataOk.Username})
-    res.render('product', {
-        title: 'SoaxDo',
-        layout : 'main-layouts/main-layouts',
-        msg : req.flash('msg'),
-        productData
-    })
+    if(dataOk){
+        const productData = await product.find({Username: dataOk.Username})
+        if(!productData){
+            res.clearCookie('token')
+            res.redirect('/login')
+            
+        }else{   
+            res.render('product', {
+                title: 'SoaxDo',
+                layout : 'main-layouts/main-layouts',
+                msg : req.flash('msg'),
+                productData })
+        }
+    }else{
+        res.clearCookie()
+    }
 })
 
 
@@ -293,7 +308,7 @@ app.put('/product',[
 })
 
 
-// router get
+// router get  
 app.get('/product/update/:NamaProduct', async (req,res) => {
     const productData = await product.findOne({NamaProduct: req.params.NamaProduct})
     if(!productData){
@@ -304,12 +319,65 @@ app.get('/product/update/:NamaProduct', async (req,res) => {
         layout: 'main-layouts/main-layouts',
         productData
     })
+}) 
+
+
+// sekarang masuk ke sction timeTable
+// router get time
+app.get('/timetable', async (req,res) => {
+    // panggil
+    const dataOk = await users.findOne({Username: req.cookies.id})
+    const Time = await timetable.find({Username: dataOk.Username})
+    if(dataOk){
+        res.render('TimeTable', {
+            title: 'SoaxDo/TimeTable',
+            layout : 'main-layouts/main-layouts',
+            msg: req.flash('msg'),
+            Time
+        })
+    }else{
+        res.redirect('/login')
+    }
+})
+
+//router pos timetable
+app.post('/timetable',async  (req,res) =>{
+    // validasi kredensial
+    const {FromTanggal,Materi,Project,Upload,Repeat} = req.body
+    const dataOk = await users.findOne({Username: req.cookies.id})
+    if(dataOk){
+        timetable.insertMany(
+            {
+                Username: req.cookies.id,
+                FromTanggal,
+                Materi,
+                Project,
+                Upload,
+                Repeat,
+            }
+        ).then((error,result) => {
+            req.flash('msg','berhasil tambah Jadwal')
+            res.redirect('/timetable')
+        })
+    }
+})
+
+//router delete timetable
+app.delete('/timetable', async (req,res) => {
+    timetable.deleteOne(
+        {_id: req.body._id}
+        ).then((error,result) => {
+            req.flash('msg', 'berhasil hapus time')
+            res.redirect('/timetable')
+        })
+
 })
 
 
 // router logout
 app.get('/logout',(req,res) => {
     res.clearCookie('token')
+    res.clearCookie('id')
     res.redirect('/login')
 })
 

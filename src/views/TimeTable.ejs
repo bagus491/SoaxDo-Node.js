@@ -1,0 +1,60 @@
+<br><br><br>
+<div class="inputan text-center">
+    <h3>Masukan Kegiatan</h3>
+    <div class="container d-flex justify-content-center">
+        <div class="card text-bg-success mb-3 " style="width: 30rem;">
+            <div class="card-body">
+              <h5 class="card-title">Masukan Inputan</h5>
+              <% if (msg.length != 0) { %>
+                <div class="alert alert-info" role="alert">
+                  <%= msg %>
+                  </div>
+              <% } %>
+              <form action="/timetable" method="post" class="form-flex">
+
+                <div class="flex-from-one">
+                    <div class="mb-3">
+                      <label for="FromTanggal" class="form-label">FromTanggal</label>
+                      <input type="date" class="form-control" name="FromTanggal" id="FromTanggal" required>  
+                    </div>
+                    <div class="mb-3">
+                        <label for="Materi" class="form-label">Materi</label>
+                        <input type="text" class="form-control" name="Materi" id="Materi" required>      
+                      </div>
+                      <div class="mb-3">
+                        <label for="Project" class="form-label">Project</label>
+                        <input type="text" class="form-control" name="Project" id="Project" required>  
+                      </div>
+
+                </div>
+
+                  <div class="flex-from-two">
+                      <div class="mb-3">
+                        <label for="Upload" class="form-label">Upload</label>
+                        <input type="text" class="form-control" name="Upload" id="Upload" required>  
+                      </div>
+                      <div class="mb-3">
+                        <label for="Repeat" class="form-label">Repeat</label>
+                        <input type="text" class="form-control" name="Repeat" id="Repeat" required>  
+                      </div>
+                      <br>
+                    <button type="submit" class="btn btn-dark button-submit-form">Submit</button>
+
+                  </div>
+              </form>
+              <br>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guide</button>
+            </div>
+          </div>
+    </div>
+</div>
+
+
+<!-- sekarang list tanggal -->
+<div class="table-output">
+    <div class="container">
+        <h1>List Table</h1>
+        <%- include('./table') %>
+    </div>
+</div>
+<%- include('./modal') %>
