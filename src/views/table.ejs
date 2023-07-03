@@ -6,13 +6,13 @@
         <th scope="col">Project</th>
         <th scope="col">Upload</th>
         <th scope="col">Repeat</th>
-        <th scope="col">Handle</th>
+        <!-- <th scope="col">Handle</th> -->
       </tr>
     </thead>
     <tbody>
         <% if (Time.length < 1 ) { %>
             <Tr>
-                <td colspan="6">
+                <td colspan="5">
                     <div class="alert alert-danger text-center" role="alert">
                       data masih kosong
                       </div>     
@@ -25,9 +25,10 @@
                 <td><%= Time.Materi %></td>
                 <td><%= Time.Project %></td>
                 <td><%= Time.Upload %></td>
-                <td><%= Time.Repeat%></td>
-
-                <td>
+                <td><%= Time.Repeat%></td>          
+            </tr>
+            <tr>
+                <td colspan="5" class="text-center">
                     <form method="post" action="/timetable?_method=DELETE">
                         <input type="hidden" name="_id" value="<%= Time._id %>">
                         <button type="submit" class="btn btn-danger" onclick="return confirm('yakin?')"><i class="bi bi-x-octagon-fill"></i> Delete</button>

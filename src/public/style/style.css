@@ -50,12 +50,17 @@ body {
     flex-wrap: wrap;
 }
 
+.flex-from-one {
+    flex: 50%;
+}
+
 .button-submit-form {
     margin-top: 5px;
 }
 
 .flex-from-two {
     margin-left: 5px;
+    flex: 50%;
 }
 
 .Profile-container{
