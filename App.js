@@ -347,20 +347,31 @@ app.get('/product/update/:NamaProduct', async (req,res) => {
 
 // sekarang masuk ke sction timeTable
 // router get time
+// done validasi
 app.get('/timetable', async (req,res) => {
     // panggil
-    const dataOk = await users.findOne({Username: req.cookies.id})
-    const Time = await timetable.find({Username: dataOk.Username})
-    if(dataOk){
-        res.render('TimeTable', {
-            title: 'SoaxDo/TimeTable',
-            layout : 'main-layouts/main-layouts',
-            msg: req.flash('msg'),
-            Time
-        })
-    }else{
+    const token = req.cookies.token
+    if(token){
+        const dataOk = await users.findOne({Username: req.cookies.id})
+        if(dataOk){
+            const Time = await timetable.find({Username: dataOk.Username})
+            res.render('TimeTable', {
+                title: 'SoaxDo/TimeTable',
+                layout : 'main-layouts/main-layouts',
+                msg: req.flash('msg'),
+                Time,
+            })
+        }else{
+            res.clearCookie('token')
+            res.clearCookie('id')
+            res.redirect('/login')
+        }
+    }else {
+        res.clearCookie('token')
+        res.clearCookie('id')
         res.redirect('/login')
     }
+    
 })
 
 //router pos timetable
