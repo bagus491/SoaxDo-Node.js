@@ -1,6 +1,7 @@
 body {
     background: linear-gradient(70deg,#B799FF,#DDDDDD,#00DFA2);
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* .navbar  {
