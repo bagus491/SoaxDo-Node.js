@@ -1,8 +1,39 @@
+body {
+    background: #AAC8A7;
+}
+
+.navbar  {
+    background: #E1ECC8;
+}
+
 .card-list {
     margin-left: 10px;
     display: flex;
     flex-wrap: wrap;
 }
+
+.nav-a  a {
+    margin-right: 5px;
+    transition: 1s;
+    color: white;
+}
+
+.nav-a a:hover {
+    color: black;
+}
+
+.text-brand {
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: 1s;
+}
+
+.text-brand:hover {
+    text-shadow: 2px 2px red;
+}
+
 
 @media screen and (max-width: 576px) {
     .card-list {
