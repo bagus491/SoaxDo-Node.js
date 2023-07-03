@@ -48,14 +48,14 @@
 <bR><br>
 <div class="list-card">
     <div class="container">
-        <h1>List Product</h1>
+        <h1 class="text-center">List Product</h1>
         <div class="card-list ">
           <% productData.forEach(productData=> { %>
             <div class="card" style="width: 18rem; margin-left: 10px;">
-              <img src="<%= productData.ImageProduct %>" class="card-img-top" alt="foto">
+              <img src="<%= productData.ImageProduct %>" class="card-img-top card-product" alt="foto">
               <div class="card-body">
-                <h5 class="card-title"><%= productData.NamaProduct %></h5>
-                <p class="card-text"><%= productData.JumlahProduct %></p>
+                <h5 class="card-title">NamaProduct: <%= productData.NamaProduct %></h5>
+                <p class="card-text">Jumlah: <%= productData.JumlahProduct %></p>
                 <form method="post" action="/product?_method=DELETE">
                   <input type="hidden" name="NamaProduct" value="<%= productData.NamaProduct %>">
                   <button type="submit" class="btn btn-danger" onclick="return confirm('yakin?')">Delete</button>
