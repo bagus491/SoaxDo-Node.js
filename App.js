@@ -184,13 +184,15 @@ async (req,res) => {
 // router profile
 app.get('/profile', async (req,res) =>{
     const token = req.cookies.token
-    if(token){
+    const validId = req.cookies.id
+    if(token && validId){
         res.render('profile', {
             title: 'SoaxDo/profile',
             layout: 'main-layouts/main-layouts',
             msg : req.flash('msg'), 
         })
     }else {
+        res.clearCookie('token')
         res.redirect('/login')
     }
 })
