@@ -436,7 +436,7 @@ app.put('/updateakun',[
             res.cookie('id',Username)
         })
         // sekarang update product
-        product.updateOne(
+        product.updateMany(
             {
                 Username: dataOK.Username
             },
@@ -449,7 +449,7 @@ app.put('/updateakun',[
             req.flash('msg','berhasil update akun')
         })
         // sekarang update timetable
-        timetable.updateOne(
+        timetable.updateMany(
             {
                 Username: dataOK.Username
             },
