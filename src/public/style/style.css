@@ -1,10 +1,10 @@
 body {
-    background: #AAC8A7;
+    background: linear-gradient(70deg,#B799FF,#DDDDDD,#00DFA2)
 }
 
-.navbar  {
+/* .navbar  {
     background: #E1ECC8;
-}
+} */
 
 .card-list {
     margin-left: 10px;
