@@ -66,6 +66,32 @@ body {
     align-items: center;
 }
 
+.container-text {
+    /* background: brown; */
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.move-box {
+    width: 400px;
+    height: 50px;
+    /* background: white; */
+    animation: textmove 5s infinite;
+    position: relative;
+    
+}
+
+@keyframes textmove {
+    0%   {top: 0px; left: 0px;}
+    25%  {top: 0px; left: 200px;}
+    50%  {top: 0px; left: 400px;color: white; font-family: fantasy; }
+    75%  {top: 0px; left: 600px; text-shadow: 2px 2px red; }
+    100% {top: 0px; left: 0px; }
+}
+
+
+
 .card-body-settings {
     display: flex;
 }
