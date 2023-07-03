@@ -34,3 +34,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.card-body-settings {
+    display: flex;
+}
+
+.body-two {
+    margin-left: 10px;
+}

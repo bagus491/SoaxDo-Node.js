@@ -374,6 +374,71 @@ app.delete('/timetable', async (req,res) => {
 })
 
 
+// sekarang masuk ke section settings
+app.get('/settings', (req,res) => {
+    res.render('settings', {
+        title: 'SoaxDo/Settings',
+        layout: 'main-layouts/main-layouts',
+        msg : req.flash('msg')
+    })
+})
+
+// update akun
+app.get('/updateakun', async (req,res) => {
+    const dataOK = await users.findOne({Username: req.cookies.id})
+    if(dataOK){
+        res.render('update-akun', {
+            title: 'SoaxDo/UpdateAkun',
+            layout: 'main-layouts/main-layouts',
+            dataOK
+        })
+    }
+})
+
+// router post update akun
+app.put('/updateakun',[
+    body('Username').custom( async (value) => {
+        const duplikat = await users.findOne({Username: value})
+        if(duplikat){
+            throw new Error('Username Telah tersedia')
+        }else{
+            return true
+        }
+    }),
+    body('Password').isLength({min: 5}).withMessage('Panjang Password Minimal 5'),
+    body('Email').isEmail().withMessage('Email tidak valid'),
+] ,async (req,res) => {
+    const dataOK = await users.findOne({Username: req.cookies.id})
+    const {Username,Password,Email} = req.body
+    const error = validationResult(req)
+    if(!error.isEmpty()){
+        res.render('/updateakun', {
+            title: 'SoaxDo/UpdateAkun',
+            layout: 'main-layouts/main-layouts',
+            dataOK: req.body,
+            error: error.array()
+        })
+    }else{
+        users.updateOne(
+            {
+                _id: dataOK._id
+            },
+            {
+                $set: {
+                    Username,
+                    Password: bycrpt.hashSync(Password,salt),
+                    Email,
+                }
+            }
+        ).then((error,result) => {
+            req.flash('msg', 'berhasil update akun')
+            res.redirect('/settings')
+        })
+    }
+
+})
+
+
 // router logout
 app.get('/logout',(req,res) => {
     res.clearCookie('token')

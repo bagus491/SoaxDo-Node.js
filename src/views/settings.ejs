@@ -1,0 +1,27 @@
+<div class="container" >
+    <div class="Profile-container">
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+            <% if (msg.length != 0) { %>
+                <div class="alert alert-info" role="alert">
+                    <%= msg %>
+                  </div>
+            <% } %>
+            <div class="card-body-settings">
+                <div class="body-first">
+                    <a href="/updateakun" class="btn btn-primary">Ubah Data</a>
+                    <br><br>
+                </div>
+                
+                <div class="body-two">
+                    
+                    <form action="/settings?_method=DELETE" method="post">
+                      <input type="hidden" name="_id" value="">
+                      <button type="submit" class="btn btn-danger">Delete Akun</button>
+                    </form>
+
+                </div>
+            </div>
+            <a href="/updateprofile" class="btn btn-warning">Update Profile</a>
+          </div>
+    </div>
+</div>

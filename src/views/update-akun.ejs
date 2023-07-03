@@ -1,0 +1,30 @@
+<br><br><br><br>
+<div class="inputan text-center">
+    <h3>Update Akun</h3>
+    <div class="container d-flex justify-content-center">
+        <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Masukan Inputan</h5>
+             <!-- msgnya -->
+              <form action="/updateakun?_method=PUT" method="post">
+                <div class="mb-3">
+                  <label for="Username" class="form-label">Username</label>
+                  <input type="text" class="form-control" name="Username"  value="<%= dataOK.Username %>"  id="Username" required>      
+                </div>
+                <div class="mb-3">
+                    <label for="Password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="Password" value="<%= dataOK.Password %>" id="Password" required>      
+                  </div>
+                  <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="Email" value="<%= dataOK.Email %>"  id="Email" required>    
+                  </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+              <br>
+              <a href="/settings">&laquo; kembali ke Settings</a>
+
+            </div>
+          </div>
+    </div>
+</div>
