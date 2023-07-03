@@ -15,8 +15,8 @@
                 <div class="body-two">
                     
                     <form action="/settings?_method=DELETE" method="post">
-                      <input type="hidden" name="_id" value="">
-                      <button type="submit" class="btn btn-danger">Delete Akun</button>
+                      <input type="hidden" name="_id" value="<%= dataOk._id %>">
+                      <button type="submit" class="btn btn-danger" onclick="return onclick('yakin?')">Delete Akun</button>
                     </form>
 
                 </div>

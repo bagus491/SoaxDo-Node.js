@@ -375,11 +375,13 @@ app.delete('/timetable', async (req,res) => {
 
 
 // sekarang masuk ke section settings
-app.get('/settings', (req,res) => {
+app.get('/settings',  async (req,res) => {
+    const dataOk = await users.findOne({Username: req.cookies.id})
     res.render('settings', {
         title: 'SoaxDo/Settings',
         layout: 'main-layouts/main-layouts',
-        msg : req.flash('msg')
+        msg : req.flash('msg'),
+        dataOk
     })
 })
 
@@ -460,6 +462,42 @@ app.put('/updateakun',[
             res.redirect('/settings')
         })
     }
+
+})
+
+// router delete akun
+app.delete('/settings', async (req,res) => {
+    const dataOk = await users.findOne({Username: req.cookies.id})
+    if(dataOk){
+        users.deleteOne(
+            {
+                _id: req.body._id
+            }
+        ).then((error,result) => {
+            console.log('berhasil')
+        })
+
+        //delete products
+        product.deleteMany(
+            {
+                Username: dataOk.Username
+            }
+        ).then((error,result) => {
+            req.flash('msg', 'berhasil hapus akun')
+        })
+
+        //delete time table
+        timetable.deleteMany(
+            {
+                Username: dataOk.Username
+            }
+        ).then((error,result) => {
+            res.clearCookie('token')
+            res.clearCookie('id')
+            res.redirect('/login')
+        })
+    }
+    
 
 })
 
