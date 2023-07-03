@@ -49,6 +49,10 @@ const secretkey = 'asdsawe1235saxsasa3123'
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
+// multer last middleware
+const multer = require('multer')
+const Upload = multer({dest: 'uploads/'})
+
 app.use('/profile', (req,res,next) => {
     const token = req.headers.authorization || req.cookies.token
     if(token){
@@ -172,15 +176,20 @@ async (req,res) => {
 })
 
 // succes login dan register
-
+// sekarang image upload
+const profile = require('./src/model/profile')
+app.use('/uploads', express.static('uploads'))
 
 // router profile
-app.get('/profile', (req,res) =>{
+app.get('/profile', async (req,res) =>{
     const token = req.cookies.token
+    const dataProfile = await profile.findOne({Username: req.cookies.id})
     if(token){
         res.render('profile', {
             title: 'SoaxDo/profile',
             layout: 'main-layouts/main-layouts',
+            msg : req.flash('msg'),
+            dataProfile
         })
     }else {
         res.redirect('/login')
@@ -507,6 +516,52 @@ app.get('/logout',(req,res) => {
     res.clearCookie('token')
     res.clearCookie('id')
     res.redirect('/login')
+})
+
+// router app get update profile
+app.get('/updateprofile', (req,res) => {
+    res.render('updateprofile', {
+        title: 'SoaxDo/UpdateProfile',
+        layout: 'main-layouts/main-layouts',
+    })
+})
+
+// router upload about
+
+app.post('/updateprofile',Upload.single('avatar'),[
+    body('About').isLength({max: 50}).withMessage('About terlalu Panjang')
+],async (req,res) => {
+    const {filename,originalname,mimetype,size} = req.file
+    const dataOk = await users.findOne({Username: req.cookies.id})
+    const error = validationResult(req)
+    if(!error.isEmpty()){
+        res.render('updateprofile', {
+            title: 'SoaxDo/UpdateProfile',
+            layout: 'main-layouts/main-layouts',
+            error: error.array()
+        })
+    }else {
+        if(dataOk){
+            const newImage = new profile({
+                Username: dataOk.Username,
+                About: req.body.About,
+                filename,
+                originalname,
+                mimetype,
+                size,
+            })
+        
+            newImage.save((err) => {
+                if(err) {
+                    console.error(err)
+                }
+                req.flash('msg', 'berhasil update profile')
+                res.redirect('/profile')
+            })
+    
+        }
+
+    }
 })
 
 // midleware pembatasan tidak boleh akses selain ke path yang telah ditentukan
