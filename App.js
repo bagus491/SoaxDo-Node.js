@@ -332,16 +332,32 @@ app.put('/product',[
 
 
 // router get  
+// validasi done
 app.get('/product/update/:NamaProduct', async (req,res) => {
-    const productData = await product.findOne({NamaProduct: req.params.NamaProduct})
-    if(!productData){
-        res.redirect('/product')
+    const token = req.cookies.token
+    if(token){
+        const dataOk = await users.findOne({Username: req.cookies.id})
+        if(dataOk){
+            const productData = await product.findOne({NamaProduct: req.params.NamaProduct})
+            if(!productData){
+                res.redirect('/product')
+            }
+            res.render('update', {
+                title: 'SoaxDo/update',
+                layout: 'main-layouts/main-layouts',
+                productData
+            })
+        }else {
+            res.clearCookie('token')
+            res.clearCookie('id')
+            res.redirect('/login')
+        }
+   
+    }else{
+        res.clearCookie('token')
+        res.clearCookie('id')
+        res.redirect('/login')
     }
-    res.render('update', {
-        title: 'SoaxDo/update',
-        layout: 'main-layouts/main-layouts',
-        productData
-    })
 }) 
 
 
