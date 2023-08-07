@@ -20,4 +20,4 @@ npm tambahan =>
 7.bycript
 
 
-author: baguskalam
+author: baguskalam :D
